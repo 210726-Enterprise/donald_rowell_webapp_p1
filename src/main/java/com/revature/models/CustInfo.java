@@ -1,19 +1,33 @@
 package com.revature.models;
 
+import com.revature.annotations.Column;
+import com.revature.annotations.PrimaryKey;
+import com.revature.annotations.Table;
+
 import java.sql.Date;
 import java.util.Scanner;
 
 /**
  * The model used to store personal information of the user.
  */
+@Table(tableName = "customer_information")
 public class CustInfo {
+
+    @PrimaryKey(columnName = "customer_id")
     private int id;                 // The customer_id in the database.
+    @Column(columnName = "user_name")
     private final String userName;  // The username of the user
+    @Column(columnName = "password")
     private final String password;  // The password of the user
+    @Column(columnName = "first_name")
     private String fName;           // The first name of the user
+    @Column(columnName = "last_name")
     private String lName;           // The last name of the user
+    @Column(columnName = "birth_date")
     private Date birthDate;         // The birthdate of the user in the following format: YYYY-MM-DD
+    @Column(columnName = "phone")
     private String phoneNum;        // The phone number of the user
+    @Column(columnName = "email")
     private String email;           // The email address of the user
 
     /**

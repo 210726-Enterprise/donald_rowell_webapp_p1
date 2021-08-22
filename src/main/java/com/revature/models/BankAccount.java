@@ -1,11 +1,19 @@
 package com.revature.models;
 
+import com.revature.annotations.Column;
+import com.revature.annotations.PrimaryKey;
+import com.revature.annotations.Table;
+
 /**
  * The model used to store bank account activity and account password.
  */
+@Table(tableName = "account_balances")
 public class BankAccount {
+    @Column(columnName = "account_name")
     private final String name;          // Name of the bank account
+    @PrimaryKey(columnName = "account_id")
     private int accountID;              // Account ID of bank account
+    @Column(columnName = "balance")
     private double balance;             // The balance of the bank account
 
     /**

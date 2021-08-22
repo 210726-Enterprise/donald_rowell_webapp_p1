@@ -1,6 +1,7 @@
 package com.revature.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.ORM;
 import com.revature.models.BankAccount;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,6 +59,6 @@ public class AccountService {
     }
 
     private int insert(BankAccount account){
-        return ORM.
+        return orm.insert(account);
     }
 }
