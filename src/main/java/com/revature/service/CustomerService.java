@@ -14,7 +14,7 @@ import java.sql.SQLException;
 import java.util.stream.Collectors;
 
 public class CustomerService {
-    private static final Logger logger = LoggerFactory.getLogger(AccountService.class);
+    private static final Logger logger = LoggerFactory.getLogger(CustomerService.class);
 
     private ORM<CustInfo> orm;
     private ObjectMapper mapper;

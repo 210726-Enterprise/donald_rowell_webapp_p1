@@ -16,11 +16,10 @@ import java.util.stream.Collectors;
 public class AccountService {
     private static final Logger logger = LoggerFactory.getLogger(AccountService.class);
 
-    private ORM<BankAccount> orm;
+    private ORM<BankAccount> orm = new ORM<>(BankAccount.class);
     private ObjectMapper mapper;
 
     public AccountService(){
-        orm = new ORM(BankAccount.class);
         mapper = new ObjectMapper();
     }
 
@@ -46,21 +45,25 @@ public class AccountService {
 
         } catch (Exception e) {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            logger.warn(e.getMessage());
+            logger.warn(e.getMessage(), e);
         }
     }
 
     public void getAccounts(HttpServletRequest req, HttpServletResponse resp){
-        if(req.getParameter("account_id") != null) {
-            if(req.getParameter("account_id").equals("")) {
+        if(req.getParameter("accountID") != null) {
+            if(req.getParameter("accountID").equals("")) {
                 resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 return;
             }
             try {
+                BankAccount account = getAccount("account_id", Integer.parseInt(req.getParameter("accountID")));
+                if(account == null){
+                    resp.setStatus(HttpServletResponse.SC_CONFLICT);
+                    return;
+                }
                 String json = mapper
                         .writerWithDefaultPrettyPrinter()
-                        .writeValueAsString(
-                                getAccount("account_id", Integer.parseInt(req.getParameter("account_id"))));
+                        .writeValueAsString(account);
 
                 if(json.equals("null")) {
                     resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -70,7 +73,7 @@ public class AccountService {
                 resp.getOutputStream().print(json);
 
             } catch (IOException e) {
-                logger.warn(e.getMessage(), e);
+                logger.warn("Failed to get", e);
             }
 
         } else {
@@ -138,7 +141,7 @@ public class AccountService {
         } catch (InvocationTargetException | InstantiationException | IllegalAccessException e){
             logger.warn("Failed to create BankAccount model, please check annotations.", e);
         } catch (Exception e) {
-            logger.warn(e.getMessage(), e);
+            logger.warn("Some other failure occurred", e);
         }
         return null;
     }

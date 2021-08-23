@@ -30,7 +30,9 @@ public class BankAccount {
     }
 
     public BankAccount(){
-
+        this.accountID = 0;
+        this.name = "default";
+        this.balance = -1.0;
     }
 
     /**
