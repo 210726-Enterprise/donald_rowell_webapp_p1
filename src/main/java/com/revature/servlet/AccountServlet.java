@@ -23,7 +23,7 @@ public class AccountServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp){
-        service.getAccount(req, resp);
+        service.getAccounts(req, resp);
     }
 
     @Override

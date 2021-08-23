@@ -16,9 +16,9 @@ public class CustInfo {
     @PrimaryKey(columnName = "customer_id")
     private int id;                 // The customer_id in the database.
     @Column(columnName = "user_name")
-    private final String userName;  // The username of the user
+    private String userName;        // The username of the user
     @Column(columnName = "password")
-    private final String password;  // The password of the user
+    private String password;        // The password of the user
     @Column(columnName = "first_name")
     private String fName;           // The first name of the user
     @Column(columnName = "last_name")
@@ -29,6 +29,8 @@ public class CustInfo {
     private String phoneNum;        // The phone number of the user
     @Column(columnName = "email")
     private String email;           // The email address of the user
+
+    public CustInfo(){}
 
     /**
      * Constructor used so when a new account is created.
@@ -75,6 +77,14 @@ public class CustInfo {
      */
     public void setID(int id){
         this.id = id;
+    }
+
+    public void setUserName(String userName){
+        this.userName = userName;
+    }
+
+    public void setPassword(String password){
+        this.password = password;
     }
 
     public void setfName(String fName) {
@@ -132,54 +142,6 @@ public class CustInfo {
 
     public String getEmail() {
         return email;
-    }
-
-    /**
-     * Instance method used for updating the personal information of the user.
-     *
-     * @param scanner Object used to read user input
-     */
-    public void setUpInfo(Scanner scanner){
-        String n;
-        System.out.print("First Name (Required): ");
-        n = scanner.nextLine();
-        if(n.equals("")){
-            System.out.println("Please input a first name");
-            this.setUpInfo(scanner);
-            return;
-        }
-        this.setfName(n);
-
-        System.out.print("\nLast Name (Required): ");
-        n = scanner.nextLine();
-        if(n.equals("")){
-            System.out.println("Please input a last name");
-            this.setUpInfo(scanner);
-            return;
-        }
-        this.setlName(n);
-
-        try{
-            System.out.print("\nBirth Date (YYYY-MM-DD)(Required): ");
-            n = scanner.nextLine();
-            if(n.length() < 8){
-                System.out.println("Please input a valid birthdate in the following format: YYYY-MM-DD");
-                this.setUpInfo(scanner);
-                return;
-            }
-            this.setBirthDate(n);
-        }catch(IllegalArgumentException e){
-            System.out.println("Please input a valid birthdate in the following format: YYYY-MM-DD");
-            this.setUpInfo(scanner);
-            return;
-        }
-
-        System.out.print("\nPhone Number: ");
-        this.setPhoneNum(scanner.nextLine());
-
-        System.out.print("\nEmail: ");
-        this.setEmail(scanner.nextLine());
-        System.out.println("");
     }
 
     /**

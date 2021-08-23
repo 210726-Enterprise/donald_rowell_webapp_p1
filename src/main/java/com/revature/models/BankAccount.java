@@ -10,7 +10,7 @@ import com.revature.annotations.Table;
 @Table(tableName = "account_balances")
 public class BankAccount {
     @Column(columnName = "account_name")
-    private final String name;          // Name of the bank account
+    private String name;                // Name of the bank account
     @PrimaryKey(columnName = "account_id")
     private int accountID;              // Account ID of bank account
     @Column(columnName = "balance")
@@ -23,10 +23,14 @@ public class BankAccount {
      * @param id The account_id
      * @param balance The balance of the bank account
      */
-    public BankAccount(String name, int id, double balance){
+    public BankAccount(int id, String name, double balance){
         this.balance = balance;
         this.name = name;
         this.accountID = id;
+    }
+
+    public BankAccount(){
+
     }
 
     /**
@@ -57,12 +61,19 @@ public class BankAccount {
     }
 
     /**
-     * Setter used to set accountID.
+     * Setters.
      */
     public void setAccountID(int id){
         this.accountID = id;
     }
 
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     /**
      * Instance method used to deposit into a specific account
