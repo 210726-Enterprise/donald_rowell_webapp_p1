@@ -9,10 +9,10 @@ import com.revature.annotations.Table;
  */
 @Table(tableName = "account_balances")
 public class BankAccount {
-    @Column(columnName = "account_name")
-    private String name;                // Name of the bank account
     @PrimaryKey(columnName = "account_id")
     private int accountID;              // Account ID of bank account
+    @Column(columnName = "account_name")
+    private String name;                // Name of the bank account
     @Column(columnName = "balance")
     private double balance;             // The balance of the bank account
 
