@@ -1,18 +1,15 @@
 package com.revature.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.revature.DML.Select;
 import com.revature.ORM;
-import com.revature.model.BasicModel;
 import com.revature.models.BankAccount;
 import org.junit.jupiter.api.*;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -21,9 +18,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.mockito.Matchers.*;
@@ -44,7 +38,6 @@ class AccountServiceTest {
     BankAccount accountMock;
     @Mock
     Select selectMock;
-    int param;
 
     @BeforeEach
     void setUp() {
