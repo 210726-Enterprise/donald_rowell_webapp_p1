@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ConnectionFactory.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">P1</a> &gt; <a href="index.source.html" class="el_package">com.revature.util</a> &gt; <span class="el_source">ConnectionFactory.java</span></div><h1>ConnectionFactory.java</h1><pre class="source lang-java linenums">package com.revature.util;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.Properties;
+
+/**
+ * Singleton used to set up the connection between this java code and the database.
+ */
+public class ConnectionFactory {
+
+<span class="nc" id="L16">    private static Connection connection = null;</span>
+
+<span class="nc" id="L18">    private static final Logger log = LoggerFactory.getLogger(ConnectionFactory.class);</span>
+
+    private ConnectionFactory(){super();}
+
+    public static synchronized Connection getConnection() {
+
+        try {
+<span class="nc bnc" id="L25" title="All 4 branches missed.">            if(connection != null &amp;&amp; !connection.isClosed()){</span>
+<span class="nc" id="L26">                return connection;</span>
+            }
+            //connection = DriverManager.getConnection(System.getenv(&quot;db_url&quot;),System.getenv(&quot;db_username&quot;),System.getenv(&quot;db_password&quot;));
+<span class="nc" id="L29">            connection = DriverManager.getConnection(&quot;jdbc:postgresql://databank.cbu38mywfjcp.us-east-2.rds.amazonaws.com/postgres&quot;,&quot;postgres&quot;,&quot;password&quot;);</span>
+<span class="nc" id="L30">        } catch (SQLException e) {</span>
+<span class="nc" id="L31">            log.error(&quot;We failed to reuse a Connection&quot;, e);</span>
+<span class="nc" id="L32">        }</span>
+
+<span class="nc" id="L34">        Properties prop = new Properties();</span>
+
+<span class="nc" id="L36">        String url = &quot;&quot;;</span>
+<span class="nc" id="L37">        String username = &quot;&quot;;</span>
+<span class="nc" id="L38">        String password = &quot;&quot;;</span>
+
+        try{
+<span class="nc" id="L41">            Class.forName(&quot;org.postgresql.Driver&quot;);</span>
+
+//            ClassLoader loader = ConnectionUtil.class.getClassLoader();
+//            if(loader == null)
+//                loader = ClassLoader.getSystemClassLoader();
+//            String propFile = &quot;conf/application.properties&quot;;
+//            java.net.URL jurl = loader.getResource(propFile);
+//
+//            assert jurl != null;
+//            prop.load(jurl.openStream());
+//            url = prop.getProperty(&quot;url&quot;);
+//            username = prop.getProperty(&quot;username&quot;);
+//            password = prop.getProperty(&quot;password&quot;);
+
+<span class="nc" id="L55">            connection = DriverManager.getConnection(&quot;jdbc:postgresql://databank.cbu38mywfjcp.us-east-2.rds.amazonaws.com/postgres&quot;,&quot;postgres&quot;,&quot;password&quot;);</span>
+<span class="nc" id="L56">            log.info(&quot;Database connection established.&quot;);</span>
+<span class="nc" id="L57">        } catch(SQLException e){</span>
+<span class="nc" id="L58">            log.error(&quot;We failed to establish a Connection&quot;);</span>
+<span class="nc" id="L59">        } catch (ClassNotFoundException e){</span>
+<span class="nc" id="L60">            log.error(e.getMessage());</span>
+<span class="nc" id="L61">        }</span>
+
+<span class="nc" id="L63">        return connection;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>User.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">P1</a> &gt; <a href="index.source.html" class="el_package">com.revature.models</a> &gt; <span class="el_source">User.java</span></div><h1>User.java</h1><pre class="source lang-java linenums">package com.revature.models;
+
+/**
+ * User model with nested BankAccount and CustInfo objects
+ */
+public class User {
+    private BankAccount account;    // Nested BankAccount object which describes the user's bank account.
+    private CustInfo ci;            // Nested CustInfo object which stores the user's personal information.
+
+    /**
+     * Constructor used when a new user register. Populates the CustInfo object and leaves the BankAccount reference pointing to null
+     *
+     * @param userName username of the user
+     * @param password password for the user's account
+     */
+<span class="nc" id="L16">    public User(String userName, String password){</span>
+<span class="nc" id="L17">        ci = new CustInfo(userName, password);</span>
+<span class="nc" id="L18">    }</span>
+
+    /**
+     * Constructor used when user is closing their bank account. This resets the user's account reference to point back at null again.
+     *
+     * @param ci CustInfo object that stores all the user's personal information
+     */
+<span class="nc" id="L25">    public User(CustInfo ci){</span>
+<span class="nc" id="L26">        this.ci = ci;</span>
+<span class="nc" id="L27">    }</span>
+
+    /**
+     * Used by ServiceImpl when user logs into their account. This repopulates their user object with their related information.
+     *
+     * @param ci CustInfo object with the user's peronal information
+     * @param account BankAccount object with the user's bank account information
+     */
+<span class="nc" id="L35">    public User(CustInfo ci, BankAccount account){</span>
+<span class="nc" id="L36">        this.ci = ci;</span>
+<span class="nc" id="L37">        this.account = account;</span>
+<span class="nc" id="L38">    }</span>
+
+    /**
+     * Getter's used to manipulate the user's customer information and bank account.
+     */
+    public CustInfo getCi(){
+<span class="nc" id="L44">        return ci;</span>
+    }
+
+    public BankAccount getAccount(){
+<span class="nc" id="L48">        return account;</span>
+    }
+
+    /**
+     * Method used when user opens a new bank account. This method gives the account variable value.
+     * @param name name of bank account
+     * @param money initial balance of bank account
+     */
+    public void openAccount(String name, double money){
+<span class="nc" id="L57">        account = new BankAccount(name, money);</span>
+<span class="nc" id="L58">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

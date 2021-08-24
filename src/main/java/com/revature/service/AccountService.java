@@ -76,6 +76,7 @@ public class AccountService {
 
             } catch (IOException e) {
                 logger.warn("Failed to get", e);
+                resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             }
 
         } else {

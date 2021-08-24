@@ -130,6 +130,21 @@ class AccountServiceTest {
     }
 
     @Test
+    void getAccountsTestFailToWriteJSONResponse() throws Exception {
+        when(mapperMock.writerWithDefaultPrettyPrinter()).thenReturn(writerMock);
+        when(mapperMock.writerWithDefaultPrettyPrinter().writeValueAsString(accountMock)).thenReturn(json);
+        when(responseMock.getWriter()).thenThrow(new IOException());
+        when(requestMock.getParameter(anyString())).thenReturn("12");
+        when(ormMock.select(any())).thenReturn(selectMock);
+        when(ormMock.select(any()).where(anyString(), anyInt())).thenReturn(accountMock);
+        when(accountMock.getAccountID()).thenReturn(12);
+
+        service.getAccounts(requestMock, responseMock);
+
+        verify(responseMock).setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+    }
+
+    @Test
     void getAccountsTestAccountNotFound() throws Exception {
         when(mapperMock.writerWithDefaultPrettyPrinter()).thenReturn(writerMock);
         when(mapperMock.writerWithDefaultPrettyPrinter().writeValueAsString(accountMock)).thenReturn("null");

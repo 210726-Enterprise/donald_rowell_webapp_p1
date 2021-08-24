@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BankAccount.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">P1</a> &gt; <a href="index.source.html" class="el_package">com.revature.models</a> &gt; <span class="el_source">BankAccount.java</span></div><h1>BankAccount.java</h1><pre class="source lang-java linenums">package com.revature.models;
+
+import com.revature.annotations.Column;
+import com.revature.annotations.PrimaryKey;
+import com.revature.annotations.Table;
+
+/**
+ * The model used to store bank account activity and account password.
+ */
+@Table(tableName = &quot;account_balances&quot;)
+public class BankAccount {
+    @PrimaryKey(columnName = &quot;account_id&quot;)
+    private int accountID;              // Account ID of bank account
+    @Column(columnName = &quot;account_name&quot;)
+    private String name;                // Name of the bank account
+    @Column(columnName = &quot;balance&quot;)
+    private double balance;             // The balance of the bank account
+
+    /**
+     * Constructor used by DAOImpl when user logs in. Sets the account name, accountID, and balance.
+     *
+     * @param name The name of the bank account
+     * @param id The account_id
+     * @param balance The balance of the bank account
+     */
+<span class="nc" id="L26">    public BankAccount(int id, String name, double balance){</span>
+<span class="nc" id="L27">        this.balance = balance;</span>
+<span class="nc" id="L28">        this.name = name;</span>
+<span class="nc" id="L29">        this.accountID = id;</span>
+<span class="nc" id="L30">    }</span>
+
+<span class="fc" id="L32">    public BankAccount(){</span>
+<span class="fc" id="L33">        this.accountID = 0;</span>
+<span class="fc" id="L34">        this.name = &quot;default&quot;;</span>
+<span class="fc" id="L35">        this.balance = -1.0;</span>
+<span class="fc" id="L36">    }</span>
+
+    /**
+     * Constructor used when the account is first opened.
+     *
+     * @param name The name of the bank account
+     * @param balance The initial balance of the bank account
+     */
+<span class="nc" id="L44">    public BankAccount(String name, double balance) {</span>
+<span class="nc" id="L45">        this.name = name;</span>
+<span class="nc" id="L46">        this.balance = balance;</span>
+<span class="nc" id="L47">        this.accountID = 0;</span>
+<span class="nc" id="L48">    }</span>
+
+    /**
+     * Getters for all the private instance variables.
+     */
+    public String getName(){
+<span class="nc" id="L54">        return this.name;</span>
+    }
+
+    public double getBalance() {
+<span class="nc" id="L58">        return balance;</span>
+    }
+
+    public int getAccountID() {
+<span class="fc" id="L62">        return accountID;</span>
+    }
+
+    /**
+     * Setters.
+     */
+    public void setAccountID(int id){
+<span class="nc" id="L69">        this.accountID = id;</span>
+<span class="nc" id="L70">    }</span>
+
+    public void setBalance(double balance) {
+<span class="nc" id="L73">        this.balance = balance;</span>
+<span class="nc" id="L74">    }</span>
+
+    public void setName(String name) {
+<span class="nc" id="L77">        this.name = name;</span>
+<span class="nc" id="L78">    }</span>
+
+    /**
+     * Instance method used to deposit into a specific account
+     *
+     * @param money The amount of money being deposited into the account
+     */
+    public void deposit(double money) {
+<span class="nc bnc" id="L86" title="All 2 branches missed.">        if(money &lt; 0) {</span>
+<span class="nc" id="L87">            System.out.println(&quot;Cannot deposit negative money.&quot;);</span>
+<span class="nc" id="L88">            return;</span>
+        }
+<span class="nc" id="L90">        this.balance += money;</span>
+<span class="nc" id="L91">    }</span>
+
+    /**
+     * Instance method used to withdraw money from a specific account
+     *
+     * @param money The amount of money being withdrawn from the account
+     */
+    public void withdraw(double money) {
+<span class="nc bnc" id="L99" title="All 2 branches missed.">        if(money &lt; 0) {</span>
+<span class="nc" id="L100">            System.out.println(&quot;Cannot withdraw negative money.&quot;);</span>
+<span class="nc" id="L101">            return;</span>
+        }
+<span class="nc bnc" id="L103" title="All 2 branches missed.">        if(money &gt; balance) {</span>
+<span class="nc" id="L104">            System.out.println(&quot;Cannot withdraw more than balance.&quot;);</span>
+<span class="nc" id="L105">            return;</span>
+        }
+<span class="nc" id="L107">        this.balance -= money;</span>
+<span class="nc" id="L108">    }</span>
+
+    /**
+     * Overridden toString() method that returns a string that states the current open account number, name, and balance.
+     *
+     * @return String that states the current open account number, name, and balance.
+     */
+    @Override
+    public String toString(){
+<span class="nc" id="L117">        return String.format(&quot;Account Number: %d\nAccount Name: %s\nCurrent Balance: $%.2f&quot;, accountID, name, balance);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

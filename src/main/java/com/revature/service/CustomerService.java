@@ -76,6 +76,7 @@ public class CustomerService {
 
             } catch (IOException e) {
                 logger.warn(e.getMessage(), e);
+                resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             }
 
         } else {
