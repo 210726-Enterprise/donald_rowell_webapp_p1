@@ -16,11 +16,12 @@ import java.util.stream.Collectors;
 public class AccountService {
     private static final Logger logger = LoggerFactory.getLogger(AccountService.class);
 
-    private ORM<BankAccount> orm = new ORM<>(BankAccount.class);
+    private ORM<BankAccount> orm;
     private ObjectMapper mapper;
 
-    public AccountService(){
-        mapper = new ObjectMapper();
+    public AccountService(ORM<BankAccount> orm, ObjectMapper mapper){
+        this.mapper = mapper;
+        this.orm = orm;
     }
 
     public void insertAccounts(HttpServletRequest req, HttpServletResponse resp) {
@@ -43,7 +44,7 @@ public class AccountService {
                 resp.setStatus(HttpServletResponse.SC_CONFLICT);
             }
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             logger.warn(e.getMessage(), e);
         }
@@ -57,7 +58,7 @@ public class AccountService {
             }
             try {
                 BankAccount account = getAccount("account_id", Integer.parseInt(req.getParameter("accountID")));
-                if(account == null){
+                if(account.getAccountID() == 0){
                     resp.setStatus(HttpServletResponse.SC_CONFLICT);
                     return;
                 }
@@ -70,15 +71,14 @@ public class AccountService {
                     return;
                 }
 
-                resp.getOutputStream().print(json);
+                resp.getWriter().print(json);
+                resp.setStatus(HttpServletResponse.SC_OK);
 
             } catch (IOException e) {
                 logger.warn("Failed to get", e);
             }
 
         } else {
-
-            req.getParameterNames();
             resp.setStatus(HttpServletResponse.SC_SERVICE_UNAVAILABLE);
         }
     }
@@ -93,7 +93,9 @@ public class AccountService {
 
             BankAccount account = mapper.readValue(builder.toString(), BankAccount.class);
 
-            if(account.getAccountID() != 0){
+            if(account.getAccountID() == 0){
+                resp.setStatus(HttpServletResponse.SC_EXPECTATION_FAILED);
+            } else{
                 boolean result = update(account);
 
                 if(result){
@@ -102,13 +104,11 @@ public class AccountService {
                     String JSON = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(account);
                     resp.getWriter().print(JSON);
                 }
-
-            } else{
-                resp.setStatus(HttpServletResponse.SC_EXPECTATION_FAILED);
             }
 
         } catch (IOException e) {
             logger.warn(e.getMessage(), e);
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
 
@@ -143,7 +143,7 @@ public class AccountService {
         } catch (Exception e) {
             logger.warn("Some other failure occurred", e);
         }
-        return null;
+        return new BankAccount();
     }
 
     private boolean update(BankAccount account){

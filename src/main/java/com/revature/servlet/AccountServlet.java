@@ -7,13 +7,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns = "/accounts")
 public class AccountServlet extends HttpServlet {
 
-    AccountService service;
+    private AccountService service;
 
-    public AccountServlet(){
-        this.service = new AccountService();
+    public AccountServlet(AccountService accountService){
+        this.service = accountService;
     }
 
     @Override

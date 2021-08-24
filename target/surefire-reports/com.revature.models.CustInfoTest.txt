@@ -1,0 +1,36 @@
+-------------------------------------------------------------------------------
+Test set: com.revature.models.CustInfoTest
+-------------------------------------------------------------------------------
+Tests run: 17, Failures: 8, Errors: 0, Skipped: 0, Time elapsed: 0.057 s <<< FAILURE! - in com.revature.models.CustInfoTest
+testGetID  Time elapsed: 0.016 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <1> but was: <0>
+	at com.revature.models.CustInfoTest.testGetID(CustInfoTest.java:57)
+
+testGetUserName  Time elapsed: 0 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <username> but was: <null>
+	at com.revature.models.CustInfoTest.testGetUserName(CustInfoTest.java:63)
+
+testGetPassword  Time elapsed: 0 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <password> but was: <null>
+	at com.revature.models.CustInfoTest.testGetPassword(CustInfoTest.java:69)
+
+testGetfName  Time elapsed: 0 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <Test> but was: <null>
+	at com.revature.models.CustInfoTest.testGetfName(CustInfoTest.java:75)
+
+testGetlName  Time elapsed: 0.001 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <Last> but was: <null>
+	at com.revature.models.CustInfoTest.testGetlName(CustInfoTest.java:81)
+
+testGetBirthDate  Time elapsed: 0.001 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <1999-05-11> but was: <null>
+	at com.revature.models.CustInfoTest.testGetBirthDate(CustInfoTest.java:87)
+
+testGetPhoneNum  Time elapsed: 0.001 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <123-456-7890> but was: <null>
+	at com.revature.models.CustInfoTest.testGetPhoneNum(CustInfoTest.java:93)
+
+testGetEmail  Time elapsed: 0.001 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <test@test.com> but was: <null>
+	at com.revature.models.CustInfoTest.testGetEmail(CustInfoTest.java:99)
+

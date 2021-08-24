@@ -19,9 +19,9 @@ public class CustomerService {
     private ORM<CustInfo> orm;
     private ObjectMapper mapper;
 
-    public CustomerService(){
-        orm = new ORM(CustInfo.class);
-        mapper = new ObjectMapper();
+    public CustomerService(ORM<CustInfo> orm, ObjectMapper mapper){
+        this.orm = orm;
+        this.mapper = mapper;
     }
 
     public void insertCustomer(HttpServletRequest req, HttpServletResponse resp) {
@@ -57,17 +57,22 @@ public class CustomerService {
                 return;
             }
             try {
+                CustInfo ci = getCustomer("customer_id", Integer.parseInt(req.getParameter("customer_id")));
+                if(ci.getID() == 0){
+                    resp.setStatus(HttpServletResponse.SC_CONFLICT);
+                    return;
+                }
                 String json = mapper
                         .writerWithDefaultPrettyPrinter()
-                        .writeValueAsString(
-                                getCustomer("customer_id", Integer.parseInt(req.getParameter("customer_id"))));
+                        .writeValueAsString(ci);
 
                 if(json.equals("null")) {
                     resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
                     return;
                 }
 
-                resp.getOutputStream().print(json);
+                resp.getWriter().print(json);
+                resp.setStatus(HttpServletResponse.SC_OK);
 
             } catch (IOException e) {
                 logger.warn(e.getMessage(), e);
@@ -106,6 +111,7 @@ public class CustomerService {
 
         } catch (IOException e) {
             logger.warn(e.getMessage(), e);
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
 
@@ -140,7 +146,7 @@ public class CustomerService {
         } catch (Exception e) {
             logger.warn(e.getMessage(), e);
         }
-        return null;
+        return new CustInfo();
     }
 
     private boolean update(CustInfo cust){

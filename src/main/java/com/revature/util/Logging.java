@@ -2,11 +2,12 @@ package com.revature.util;
 
 import org.apache.log4j.*;
 
+@jdk.nashorn.internal.runtime.logging.Logger
 public class Logging {
 
     final static Logger logger = Logger.getLogger(Logging.class);
 
-    public static void main(String[] args){
+    public static void main(String args[]){
         /* Log4J Logging Levels - Levels add on to each other
             TRACE - General use information about the application
             DEBUG - More specific than trace, used for debugging
@@ -37,8 +38,8 @@ public class Logging {
         FileAppender fileAppender = new FileAppender();
         fileAppender.setThreshold(Level.WARN);
         fileAppender.setLayout(layout);
-        fileAppender.setFile("src/main/logs/issues.txt");
-        fileAppender.setAppend(false);
+        fileAppender.setFile("src/main/logs/log.txt");
+        fileAppender.setAppend(true);
         fileAppender.activateOptions();
         Logger.getRootLogger().addAppender(fileAppender);
 
@@ -49,18 +50,6 @@ public class Logging {
             %p - output the priority (level) of the logging event
             %n - new line
          */
-
-        logger.debug("This is a debug");
-        logger.info("This is some info");
-        logger.error("This is an error");
-
-        try{
-            // some code
-
-            throw new Exception("This should log as an error");
-        } catch (Exception e){
-            logger.error("catch block",e);
-        }
 
     }
 }

@@ -30,7 +30,9 @@ public class CustInfo {
     @Column(columnName = "email")
     private String email;           // The email address of the user
 
-    public CustInfo(){}
+    public CustInfo(){
+        this.id = 0;
+    }
 
     /**
      * Constructor used so when a new account is created.

@@ -10,10 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(urlPatterns = "/customers")
 public class CustomerServlet extends HttpServlet{
 
-    CustomerService service;
+    private CustomerService service;
 
-    public CustomerServlet(){
-        this.service = new CustomerService();
+    public CustomerServlet(CustomerService service){
+        this.service = service;
     }
 
     @Override
