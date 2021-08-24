@@ -51,13 +51,13 @@ public class CustomerService {
     }
 
     public void getCustomers(HttpServletRequest req, HttpServletResponse resp){
-        if(req.getParameter("customer_id") != null) {
-            if(req.getParameter("customer_id").equals("")) {
+        if(req.getParameter("id") != null) {
+            if(req.getParameter("id").equals("")) {
                 resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 return;
             }
             try {
-                CustInfo ci = getCustomer("customer_id", Integer.parseInt(req.getParameter("customer_id")));
+                CustInfo ci = getCustomer(Integer.parseInt(req.getParameter("id")));
                 if(ci.getID() == 0){
                     resp.setStatus(HttpServletResponse.SC_CONFLICT);
                     return;
@@ -139,9 +139,9 @@ public class CustomerService {
         return -1;
     }
 
-    private CustInfo getCustomer(String column, int id) {
+    private CustInfo getCustomer(int id) {
         try {
-            return (CustInfo) orm.select(CustInfo.class).where(column, id);
+            return (CustInfo) orm.select(CustInfo.class).where(id);
         } catch (InvocationTargetException | InstantiationException | IllegalAccessException e){
             logger.warn("Failed to create CustInfo model, please check annotations.", e);
         } catch (Exception e) {

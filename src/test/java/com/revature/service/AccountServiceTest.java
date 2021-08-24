@@ -113,7 +113,7 @@ class AccountServiceTest {
         when(responseMock.getWriter()).thenReturn(printWriterMock);
         when(requestMock.getParameter(anyString())).thenReturn("12");
         when(ormMock.select(any())).thenReturn(selectMock);
-        when(ormMock.select(any()).where(anyString(), anyInt())).thenReturn(accountMock);
+        when(ormMock.select(any()).where(anyInt())).thenReturn(accountMock);
         when(accountMock.getAccountID()).thenReturn(12);
 
         service.getAccounts(requestMock, responseMock);
@@ -129,7 +129,7 @@ class AccountServiceTest {
         when(responseMock.getWriter()).thenThrow(new IOException());
         when(requestMock.getParameter(anyString())).thenReturn("12");
         when(ormMock.select(any())).thenReturn(selectMock);
-        when(ormMock.select(any()).where(anyString(), anyInt())).thenReturn(accountMock);
+        when(ormMock.select(any()).where(anyInt())).thenReturn(accountMock);
         when(accountMock.getAccountID()).thenReturn(12);
 
         service.getAccounts(requestMock, responseMock);
@@ -144,7 +144,7 @@ class AccountServiceTest {
         when(responseMock.getWriter()).thenReturn(printWriterMock);
         when(requestMock.getParameter(anyString())).thenReturn("12");
         when(ormMock.select(any())).thenReturn(selectMock);
-        when(ormMock.select(any()).where(anyString(), anyInt())).thenReturn(accountMock);
+        when(ormMock.select(any()).where(anyInt())).thenReturn(accountMock);
         when(accountMock.getAccountID()).thenReturn(12);
 
         service.getAccounts(requestMock, responseMock);
@@ -159,7 +159,7 @@ class AccountServiceTest {
         when(responseMock.getWriter()).thenReturn(printWriterMock);
         when(requestMock.getParameter(anyString())).thenReturn("12");
         when(ormMock.select(any())).thenReturn(selectMock);
-        when(ormMock.select(any()).where(anyString(), anyInt())).thenThrow(new InstantiationException());
+        when(ormMock.select(any()).where(anyInt())).thenThrow(new InstantiationException());
 
         service.getAccounts(requestMock, responseMock);
 
@@ -173,7 +173,7 @@ class AccountServiceTest {
         when(responseMock.getWriter()).thenReturn(printWriterMock);
         when(requestMock.getParameter(anyString())).thenReturn("12");
         when(ormMock.select(any())).thenReturn(selectMock);
-        when(ormMock.select(any()).where(anyString(), anyInt())).thenThrow(new SQLException());
+        when(ormMock.select(any()).where(anyInt())).thenThrow(new SQLException());
 
         service.getAccounts(requestMock, responseMock);
 

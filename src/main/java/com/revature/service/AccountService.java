@@ -57,7 +57,7 @@ public class AccountService {
                 return;
             }
             try {
-                BankAccount account = getAccount("account_id", Integer.parseInt(req.getParameter("accountID")));
+                BankAccount account = getAccount(Integer.parseInt(req.getParameter("accountID")));
                 if(account.getAccountID() == 0){
                     resp.setStatus(HttpServletResponse.SC_CONFLICT);
                     return;
@@ -136,9 +136,9 @@ public class AccountService {
         return -1;
     }
 
-    private BankAccount getAccount(String column, int id) {
+    private BankAccount getAccount(int id) {
         try {
-            return (BankAccount) orm.select(BankAccount.class).where(column, id);
+            return (BankAccount) orm.select(BankAccount.class).where(id);
         } catch (InvocationTargetException | InstantiationException | IllegalAccessException e){
             logger.warn("Failed to create BankAccount model, please check annotations.", e);
         } catch (Exception e) {
