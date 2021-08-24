@@ -104,6 +104,8 @@ public class AccountService {
 
                     String JSON = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(account);
                     resp.getWriter().print(JSON);
+                } else {
+                    resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 }
             }
 
